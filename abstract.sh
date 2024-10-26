@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# ========== 下载并显示 Logo ==========
+curl -s https://raw.githubusercontent.com/ziqing888/logo.sh/refs/heads/main/logo.sh | bash
+sleep 3
+
 # ========== 样式和图标变量 ==========
 BOLD='\033[1m'
 UNDERLINE='\033[4m'
@@ -171,13 +175,11 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 }
 DEPLOY
 
-    # 检查文件是否存在
     if [[ ! -f "deploy.ts" ]]; then
         log_error "部署脚本生成失败，请检查脚本创建逻辑。"
         return 1
     fi
 
-    # 使用简化路径部署
     npx hardhat deploy-zksync --script deploy.ts || { log_error "合约部署失败"; exit 1; }
     log_success "合约部署完成"
 }
